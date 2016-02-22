@@ -1,24 +1,24 @@
 import React, {Component, PropTypes} from 'react';
 import mergeClassNames from 'classnames';
 import {connect} from 'react-redux';
+import {$transform, $get} from 'plow-js';
+
 import {actions} from 'Host/Redux/';
 import {
     Button,
     Icon,
     ToggablePanel
 } from 'Host/Components/';
-import {immutableOperations} from 'Shared/Utilities/';
+
 import style from './style.css';
 
-const {$get} = immutableOperations;
-
-@connect(state => ({
-    isHidden: $get(state, 'ui.offCanvas.isHidden')
+@connect($transform({
+    isHidden: $get('ui.offCanvas.isHidden')
 }))
 export default class OffCanvas extends Component {
     static propTypes = {
         isHidden: PropTypes.bool.isRequired,
-        dispatch: PropTypes.any.isRequired
+        dispatch: PropTypes.func.isRequired
     };
 
     render() {
